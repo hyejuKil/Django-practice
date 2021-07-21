@@ -12,5 +12,14 @@ def wordCount(requset):
 
 def wordCountAns(request):
     sentence = request.GET['sentence']
-    count = len(sentence.split())
-    return render(request,'wordCountAns.html',{'count' : count})
+
+    wordList = sentence.split()
+
+    wordDict = {}
+    for word in wordList:
+        if word in wordDict:
+            wordDict[word] +=1
+        else:
+            wordDict[word] = 1
+
+    return render(request,'wordCountAns.html',{'sentence' : sentence,'count' : len(wordList), 'wordDict' : wordDict.items})
